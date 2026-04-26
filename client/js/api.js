@@ -1,4 +1,8 @@
-const API_URL = 'http://127.0.0.1:5000/api';
+// For local development: http://127.0.0.1:5000/api
+// For production: Replace the URL below with your Render Backend URL
+const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://127.0.0.1:5000/api'
+    : window.location.origin.replace('3000', '5000') + '/api'; // Placeholder logic
 
 const api = {
     async request(endpoint, options = {}) {
