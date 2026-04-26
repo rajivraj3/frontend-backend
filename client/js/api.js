@@ -1,8 +1,8 @@
 // For local development: http://127.0.0.1:5000/api
-// For production: Replace the URL below with your Render Backend URL
+// For production: Connected to Render Backend
 const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://127.0.0.1:5000/api'
-    : window.location.origin.replace('3000', '5000') + '/api'; // Placeholder logic
+    : 'https://veritas-backend-1qxz.onrender.com/api';
 
 const api = {
     async request(endpoint, options = {}) {
