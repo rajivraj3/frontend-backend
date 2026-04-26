@@ -20,6 +20,10 @@ mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('✅ MongoDB Connected'))
     .catch(err => console.error('❌ MongoDB Connection Error:', err));
 
+app.get('/', (req, res) => {
+    res.send({ status: 'Veritas API is Online', timestamp: new Date() });
+});
+
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/assignments', require('./routes/assignments'));
