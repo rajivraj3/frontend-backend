@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Veritas Forensics</title>
+    <link rel="stylesheet" href="css/index.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at top right, #1e1b4b, #050914);
+        }
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+        }
+        .login-header {
+            margin-bottom: 2.5rem;
+        }
+        .login-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .login-header p {
+            color: var(--text-muted);
+        }
+        .form-footer {
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        .form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card glass animate-fade">
+        <div class="login-header">
+            <div class="logo-icon" style="margin: 0 auto 1.5rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h1>Secure Access</h1>
+            <p>Enter your credentials to initialize session</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group" style="text-align: left;">
+                <label class="label">Email Address</label>
+                <input type="email" id="email" class="input" placeholder="name@institution.edu" required>
+            </div>
+            <div class="form-group" style="text-align: left;">
+                <label class="label">Security Key</label>
+                <input type="password" id="password" class="input" placeholder="••••••••••••" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+                Initialize Session
+            </button>
+        </form>
+
+        <div class="form-footer">
+            First time investigator? <a href="register.html">Create Research ID</a>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const { user } = await api.auth.login(email, password);
+                if (user.role === 'admin') window.location.href = 'admin/dashboard.html';
+                else if (user.role === 'faculty') window.location.href = 'faculty/dashboard.html';
+                else window.location.href = 'student/dashboard.html';
+            } catch (err) {
+                alert(err.message);
+            }
+        });
+    </script>
+</body>
+</html>
